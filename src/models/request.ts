@@ -36,7 +36,7 @@ export class RequestModel {
   sendMessage(userId, token, msg) {
     console.log('token',token);
     
-    var options = {
+    const options = {
       method: 'POST',
       url: 'https://api.line.me/v2/bot/message/push',
       headers: {
@@ -52,7 +52,8 @@ export class RequestModel {
         ],
         to: userId,
         notificationDisabled: false
-      }
+      },
+      json: true
     };
     return new Promise<void>((resolve, reject) => {
       request(options).then(function (response) {
