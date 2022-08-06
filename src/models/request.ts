@@ -55,7 +55,7 @@ export class RequestModel {
       }
     };
     return new Promise<void>((resolve, reject) => {
-      request.request(options).then(function (response) {
+      request(options).then(function (response) {
         resolve(response.data);
       }).catch(function (error) {
         reject(error);
