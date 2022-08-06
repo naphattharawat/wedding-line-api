@@ -40,4 +40,21 @@ router.post('/status', async (req: Request, res: Response) => {
 
 });
 
+// save new request
+router.post('/message', async (req: Request, res: Response) => {
+  try {
+    const db = req.db;
+    const userId = req.body.userId;
+    const token = req.body.token;
+    const message = req.body.message;
+
+    await requestModel.sendMessage(userId, token, message);
+    res.send({ ok: true })
+  } catch (error) {
+    console.log(error);
+    res.send({ ok: false, error })
+  }
+
+});
+
 export default router;

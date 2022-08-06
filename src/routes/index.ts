@@ -4,6 +4,7 @@ import { Jwt } from '../models/jwt';
 import { RequestModel } from '../models/request';
 
 import * as HttpStatus from 'http-status-codes';
+import { stringify } from 'querystring';
 
 const jwt = new Jwt();
 const requestModel = new RequestModel();
@@ -72,6 +73,7 @@ router.post('/', async (req: Request, res: Response) => {
 
 router.post('/webhook', (req: Request, res: Response) => {
   console.log(req.body);
+  console.log(JSON.stringify(req.body));
   res.send({ ok: true, message: 'Welcome to RESTful api server!', code: HttpStatus.OK });
 });
 export default router;
