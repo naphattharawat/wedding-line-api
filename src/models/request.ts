@@ -57,9 +57,11 @@ export class RequestModel {
     };
     return new Promise<void>((resolve, reject) => {
       request(options, function (error, response, body) {
+        if (error) {
+          reject(error);
+        }
+        console.log(body);
         resolve(response.data);
-      }).catch(function (error) {
-        reject(error);
       });
 
     })
