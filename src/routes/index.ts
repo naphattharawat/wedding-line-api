@@ -69,4 +69,9 @@ router.post('/', async (req: Request, res: Response) => {
   res.send({ ok: true, message: body });
 });
 
+
+router.post('/webhook', (req: Request, res: Response) => {
+  console.log(req.body);
+  res.send({ ok: true, message: 'Welcome to RESTful api server!', code: HttpStatus.OK });
+});
 export default router;
