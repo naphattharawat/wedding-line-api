@@ -32,6 +32,8 @@ export class RequestModel {
   }
 
   sendMessage(userId, token, msg) {
+    console.log('token',token);
+    
     var options = {
       method: 'POST',
       url: 'https://api.line.me/v2/bot/message/push',
