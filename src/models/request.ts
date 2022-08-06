@@ -1,5 +1,7 @@
 import * as Knex from 'knex';
 var axios = require("axios").default;
+var request = require("request");
+
 const line = require('@line/bot-sdk');
 export class RequestModel {
 
@@ -41,7 +43,7 @@ export class RequestModel {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
       },
-      data: {
+      body: {
         messages: [
           {
             type: 'text',
@@ -53,7 +55,7 @@ export class RequestModel {
       }
     };
     return new Promise<void>((resolve, reject) => {
-      axios.request(options).then(function (response) {
+      request.request(options).then(function (response) {
         resolve(response.data);
       }).catch(function (error) {
         reject(error);
