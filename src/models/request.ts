@@ -41,7 +41,7 @@ export class RequestModel {
       url: 'https://api.line.me/v2/bot/message/push',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`
       },
       body: {
         messages: [
