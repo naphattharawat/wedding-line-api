@@ -16,25 +16,26 @@ router.get('/request', (req: Request, res: Response) => {
 });
 
 // save new request
-router.post('/request', async (req: Request, res: Response) => {
-  let code = moment().format('x');
-  let cause = req.body.cause;
-  let customerId = req.decoded.id;
-  let requestDate = moment().format('YYYY-MM-DD');
-  let requestTime = moment().format('HH:mm:ss');
-
-  let data: any = {};
-  data.request_code = code;
-  data.request_cause = cause;
-  data.customer_id = customerId;
-  data.request_date = requestDate;
-  data.request_time = requestTime;
-
+router.post('/status', async (req: Request, res: Response) => {
   try {
-    await requestModel.saveRequest(req.db, data);
-    res.send({ ok: true, code: HttpStatus.OK });
+    const db = req.db;
+    const userId = req.body.userId;
+    const displayName = req.body.displayName;
+    const pictureUrl = req.body.pictureUrl;
+    const no = req.body.no;
+    const status = req.body.status;
+
+    await requestModel.saveStatus(db, {
+      line_id: userId,
+      displayname: encodeURI(displayName),
+      image: pictureUrl,
+      status: status,
+      no: no
+    })
+    res.send({ ok: true })
   } catch (error) {
-    res.send({ ok: false, error: error.message, code: HttpStatus.OK });
+    console.log(error);
+    res.send({ ok: false, error })
   }
 
 });

@@ -47,7 +47,7 @@ let connection: MySqlConnectionConfig = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   multipleStatements: true,
-  debug: true
+  debug: false
 }
 
 let db = Knex({
@@ -94,7 +94,7 @@ let checkAuth = (req: Request, res: Response, next: NextFunction) => {
 }
 
 app.use('/login', loginRoute);
-app.use('/api', checkAuth, requestRoute);
+app.use('/api', requestRoute);
 app.use('/', indexRoute);
 
 //error handlers
