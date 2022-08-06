@@ -32,24 +32,33 @@ export class RequestModel {
   }
 
   sendMessage(userId, token, msg) {
-    const client = new line.Client({
-      channelAccessToken: token
-    });
-
-    const message = {
-      type: 'text',
-      text: msg
+    var options = {
+      method: 'POST',
+      url: 'https://api.line.me/v2/bot/message/push',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      data: {
+        messages: [
+          {
+            type: 'text',
+            text: msg
+          }
+        ],
+        to: userId,
+        notificationDisabled: false
+      }
     };
-
-    client.pushMessage(userId, message)
-      .then(() => {
-        console.log('success');
-
-      })
-      .catch((err) => {
-        console.log(err);
-
-        // error handling
+    return new Promise<void>((resolve, reject) => {
+      axios.request(options).then(function (response) {
+        resolve(response.data);
+      }).catch(function (error) {
+        reject(error);
       });
+
+    })
   }
+
+  
 }
